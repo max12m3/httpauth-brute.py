@@ -6,4 +6,7 @@ To install:
 ToDo:
 	Add ability to specify arguments and TOR support
 
-@dustyfresh
+User-Agent:
+	Selected at random using fake_useragent
+
+follow: @dustyfresh
